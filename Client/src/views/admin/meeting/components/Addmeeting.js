@@ -43,18 +43,27 @@ const AddMeeting = (props) => {
         initialValues: initialValues,
         validationSchema: MeetingSchema,
         onSubmit: (values, { resetForm }) => {
-            
+            AddData();
         },
     });
     const { errors, touched, values, handleBlur, handleChange, handleSubmit, setFieldValue } = formik
 
     const AddData = async () => {
-
+        try {
+            setIsLoding(true)
+            let response = await postApi('api/meeting/add', { ...values, moduleId: props?.leadData?._id })
+            if (response.status === 201) {
+                props.onClose();
+                formik.resetForm();
+                props.setAction((pre) => !pre)
+            }
+        } catch (e) {
+            console.log(e);
+        }
+        finally {
+            setIsLoding(false)
+        }
     };
-
-    const fetchAllData = async () => {
-        
-    }
 
     useEffect(() => {
 

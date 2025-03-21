@@ -73,12 +73,10 @@ const deleteData = async (req, res) => {
 const deleteMany = async (req, res) => {
   try {
     const { filter } = req.body; // Example: { date: { $lt: '2024-01-01' } }
-    const result = await Meeting.deleteMany(filter);
-
+    const result = await Meeting.deleteMany({ _id: { $in: filter } });
     if (result.deletedCount === 0) {
       return res.status(404).json({ message: 'No meetings found matching the criteria' });
     }
-
     res.status(200).json({ message: `${result.deletedCount} meetings deleted successfully` });
   } catch (error) {
     res.status(500).json({ message: 'Error deleting meetings', error });
