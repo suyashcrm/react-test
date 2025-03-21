@@ -72,7 +72,13 @@ const Index = () => {
         },
         { Header: "Date & Time", accessor: "dateTime", },
         { Header: "Time Stamp", accessor: "timestamp", },
-        { Header: "Create By", accessor: "createdByName", },
+        {
+            Header: "Create By",
+            accessor: "createBy.username",
+            cell: ({ value }) => (
+                <Text fontWeight="bold">{value || "Unknown"}</Text>
+            )
+        },
         ...(permission?.update || permission?.view || permission?.delete ? [actionHeader] : [])
 
     ];

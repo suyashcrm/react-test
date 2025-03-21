@@ -20,8 +20,13 @@ const add = async (req, res) => {
  * @route GET /api/meetings
  */
 const index = async (req, res) => {
+  const query = req.query
   try {
-    const meetings = await Meeting.find();
+    const meetings = await Meeting.find(query).populate({
+        path: 'createBy',
+        match: { deleted: false },// Populate only if createBy.deleted is false
+        select: "username",
+    }).exec();
     res.status(200).json(meetings);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching meetings', error });
@@ -35,7 +40,11 @@ const index = async (req, res) => {
 const view = async (req, res) => {
   try {
     const { id } = req.params;
-    const meeting = await Meeting.findById(id);
+    const meeting = await Meeting.findById(id).populate({
+        path: 'createBy',
+        match: { deleted: false },// Populate only if createBy.deleted is false
+        select: "username",
+    }).exec();
 
     if (!meeting) {
       return res.status(404).json({ message: 'Meeting not found' });
