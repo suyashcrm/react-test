@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const meetingHistory = new mongoose.Schema({
     agenda: { type: String, required: true },
     attendes: [{
