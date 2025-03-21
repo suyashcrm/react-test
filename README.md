@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# react-test
-=======
 # React & Node.js Skill Test
 
 ## Estimated Time
@@ -18,4 +15,4 @@
 - Implement Restful API of "Meeting" in the both of server and client sides (40min)<br/>
   Focus Code Style and Code Optimization. <br/>
   Reference other functions.
->>>>>>> 3583381 (init)
+
